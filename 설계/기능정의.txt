@@ -1,0 +1,34 @@
+기능
+	회원가입 POST /v1/account/register
+	회원탈퇴 POST /v1/account/unregister
+	
+	세션관리
+		로그인  POST /v1/login
+		로그아웃 GET /v1/logout
+		
+	클럽생성 POST /v1/club/create
+	클럽가입 POST /v1/club/join
+	
+	
+	클럽관리자:  
+		클럽원 권한 관리   POST /v1/club/management/permission
+		카테고리 관리 GET,POST,DELETE /v1/club/management/category
+		물건 등록 POST,DELETE /v1/club/management/asset
+		클럽원 관리  GET,POST,DELETE /v1/club/management/member
+	클럽원:
+		푸시알림
+			-반납기간 임박
+			-대여 가능 알림
+		
+		물건 리스트 GET /v1/club/management/asset
+		
+		찜하기  /v1/club/asset/<asset ID>/like
+		찜하기해제 /v1/club/asset/<asset ID>/unlike
+		
+		대여 + 반납기간 설정 POST /v1/club/asset/<asset ID>/borrow
+		반납
+			POST /v1/club/asset/<asset ID>/return
+		
+		댓글(빌린 사람, 빌리지 않은 사람)
+			리스트 가져오기 GET /v1/club/asset/<asset ID>/comment
+			댓글 달기 POST /v1/club/asset/<asset ID>/comment
