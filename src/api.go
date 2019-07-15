@@ -102,10 +102,46 @@ func waiterDelete(ctx iris.Context) {
 
 }
 
+func commentGetList(ctx iris.Context) {
+
+}
+
 func commentPost(ctx iris.Context) {
 
 }
 
 func commentDelete(ctx iris.Context) {
+
+}
+
+func commentOnCommentPost(ctx iris.Context) {
+
+}
+
+func ownGetList(ctx iris.Context) {
+
+}
+
+func ownPost(ctx iris.Context) {
+
+}
+
+func ownPut(ctx iris.Context) {
+
+}
+
+func ownDelete(ctx iris.Context) {
+
+}
+
+func likeGetList(ctx iris.Context) {
+
+}
+
+func likePost(ctx iris.Context) {
+
+}
+
+func likeDelete(ctx iris.Context) {
 
 }
