@@ -1,43 +1,4 @@
-회원
-	가입 POST /v1/account/register
-		email string
-		passwd string
-		
-		success boolean
 
-	탈퇴 POST /v1/account/unregister
-		session_key string
-		passwd string
-
-		success boolean
-
-세션관리
-	로그인  POST /v1/login
-		email string
-		passwd string
-		mac string
-
-		success boolean
-
-	로그아웃 POST /v1/logout
-		session_key string
-
-		success boolean
-
-클럽
-	생성 POST /v1/club/create
-		session_key string
-		name string
-		description string
-
-		success boolean
-		error string
-
-	가입 POST /v1/club/join
-		session_key string
-		club_pk int
-		
-		success boolean
 
 
 관리자:  
@@ -132,11 +93,6 @@
 		club_pk int
 
 		(arr) name string, description
-	클럽 목록 GET /v1/list/club
-		name string
-
-		(arr) club_pk int, name string, description string
-
 
 
 클럽원:
@@ -155,44 +111,192 @@
 	댓글(빌린 사람, 빌리지 않은 사람)
 		리스트 가져오기 GET /v1/club/asset/<asset ID>/comment
 		댓글 달기 POST /v1/club/asset/<asset ID>/comment
-		
+////////////////////////////////////////////////////////////////
 	회원가입	POST	/v1/account
-	회원탈퇴	DELETE	/v1/account
-
-	로그인	POST	/v1/login
 		email string
 		passwd string
 		
 		success boolean
+		error string
+	회원탈퇴	DELETE	/v1/account
+		passwd string
+
+		success boolean
+		error string
+	로그인		POST	/v1/login
+		email string
+		passwd string
+		
+		success boolean
+		error string
 	로그아웃	GET	/v1/logout
+
+		success boolean
+		error string
 	클럽 생성	POST	/v1/club
+		name string
+		description string
+
+		success boolean
+		error string
 	클럽 검색	GET	/v1/club
-	클럽 수정	PUT	/v1/club/<club-pk>
-	클럽 삭제	DELETE	/v1/club/<club-pk>
-	가입대기자 목록 조회	GET	/v1/club/<club-pk>/waiters       
-	가입 승인 및 거절	PUT	/v1/club/<club-pk>/waiters/<user-pk>
-	클럽 멤버 리스트 조회	GET	/v1/club/<club-pk>/members
-	클럽 멤버 정보 조회	GET	/v1/club/<club-pk>/members/<user-pk>
-	클럽 멤버 추방	DELETE	/v1/club/<club-pk>/members/<user-pk>
-	클럽 멤버 권한 수정	PUT	/v1/club/<club-pk>/members/<user-pk>
-	물건 대여 목록	GET	/v1/club/<club-pk>/members/<user-pk>/owns
-	물건 대여	POST	/v1/club/<club-pk>/members/<user-pk>/owns
-	물건 대여 연장	PUT	/v1/club/<club-pk>/members/<user-pk>/owns/<asset-pk>
-	물건 반납	DELETE	/v1/club/<club-pk>/members/<user-pk>/owns/<asset-pk>
-	찜한 물건 목록	GET	/v1/club/<club-pk>/members/<user-pk>/likes
-	찜한 목록 추가	POST	/v1/club/<club-pk>/members/<user-pk>/likes
-	찜한 목록에서 제거	DELETE	/v1/club/<club-pk>/members/<user-pk>/likes/<asset-pk>
-	카테고리 목록 조회	GET	/v1/club/<club-pk>/categories
-	카테고리 생성	POST	/v1/club/<club-pk>/categories
-	카테고리 정보 조회	GET	/v1/club/<club-pk>/categories/<category-pk>
-	카테고리 수정	PUT	/v1/club/<club-pk>/categories/<category-pk>
-	카테고리 삭제(recursive)	DELETE	/v1/club/<club-pk>/categories/<category-pk>
-	물건 리스트 조회	GET	/v1/club/<club-pk>/assets
-	물건 등록	POST	/v1/club/<club-pk>/assets
-	물건 정보 조회	GET	/v1/club/<club-pk>/assets/<asset-pk>
-	물건 삭제	DELETE	/v1/club/<club-pk>/assets/<asset-pk>
-	물건 수정	PUT	/v1/club/<club-pk>/assets/<asset-pk>
-	댓글 리스트 가져오기	GET	/v1/club/<club-pk>/assets/<asset-pk>/comments
-	댓글 작성하기	POST	/v1/club/<club-pk>/assets/<asset-pk>/comments
-	댓글 삭제하기	DELETE	/v1/club/<club-pk>/assets/<asset-pk>/comments/<comment-pk>
-	대댓글 작성하기	POST	/v1/club/<club-pk>/assets/<asset-pk>/comments/<comment-pk>
+		name string
+
+		success boolean
+		error string
+		(arr) club_id uint, name string, description string
+	클럽 수정	PUT	/v1/club/{clubID:uint}
+		club_name string
+		club_descriptsion
+		
+		success boolean
+		error string
+	클럽 삭제	DELETE	/v1/club/{clubID:uint}
+		
+		success boolean
+		error string
+	가입대기자 목록 조회	GET	/v1/club/{clubID:uint}/waiters
+		
+		success boolean
+		error string
+		(arr) user_name, user_phone, user_email
+	클럽 가입 요청	GET	/v1/club/{clubID:uint}/waiters
+		
+		success boolean
+		error string
+	가입 승인	PUT	/v1/club/{clubID:uint}/waiters/{userID:uint}
+		
+		success boolean
+		error string
+	가입 거절	DELETE	/v1/club/{clubID:uint}/waiters/{userID:uint}
+		
+		success boolean
+		error string
+	클럽 멤버 리스트 조회	GET	/v1/club/{clubID:uint}/members
+
+		success boolean
+		error string
+	클럽 멤버 정보 조회	GET	/v1/club/{clubID:uint}/members/{userID:uint}
+		
+		success boolean
+		error string
+		name string
+		email string
+		phone string
+	클럽 멤버 추방	DELETE	/v1/club/{clubID:uint}/members/{userID:uint}
+	
+		success boolean
+		error string
+	클럽 멤버 권한 수정	PUT	/v1/club/{clubID:uint}/members/{userID:uint}
+		-permission 테이블의 column에 따라 json으로 요청-
+	
+		success boolean
+		error string
+	물건 대여 목록	GET	/v1/club/{clubID:uint}/members/{userID:uint}/owns
+	
+		success boolean
+		error string
+	물건 대여	POST	/v1/club/{clubID:uint}/members/{userID:uint}/owns
+		assetID uint
+	
+		success boolean
+		error string
+	물건 대여 연장	PUT	/v1/club/{clubID:uint}/members/{userID:uint}/owns/{assetID:uint}
+		date time.Time
+		
+		success boolean
+		error string		
+	물건 반납	DELETE	/v1/club/{clubID:uint}/members/{userID:uint}/owns/{assetID:uint}
+
+		success boolean
+		error string	
+	찜한 물건 목록	GET	/v1/club/{clubID:uint}/members/{userID:uint}/likes
+
+		success boolean
+		error string	
+	찜한 목록 추가	POST	/v1/club/{clubID:uint}/members/{userID:uint}/likes
+		assetID uint
+
+		success boolean
+		error string	
+	찜한 목록에서 제거	DELETE	/v1/club/{clubID:uint}/members/{userID:uint}/likes/{assetID:uint}
+
+		success boolean
+		error string	
+	카테고리 목록 조회	GET	/v1/club/{clubID:uint}/categories
+
+		success boolean
+		error string
+		(arr) categoryID uint, parentCategoryID uint, name string
+	카테고리 생성	POST	/v1/club/{clubID:uint}/categories
+		parentCategoryID uint
+		name string
+
+		success boolean
+		error string
+	카테고리 정보 조회	GET	/v1/club/{clubID:uint}/categories/{categoryID:uint}
+
+		success boolean
+		error string
+		parentCategoryID uint
+		name string
+	카테고리 수정	PUT	/v1/club/{clubID:uint}/categories/{categoryID:uint}
+		parentCategoryID uint
+		name string
+
+		success boolean
+		error string
+	카테고리 삭제(recursive)	DELETE	/v1/club/{clubID:uint}/categories/{categoryID:uint}
+	
+		success boolean
+		error string	
+	물건 리스트 조회	GET	/v1/club/{clubID:uint}/assets
+
+		success boolean
+		error string
+		(arr) assetID uint, name string, categoryName uint, description String, imageFileName string, canReserve boolean, nowReserver string, reserverID uint
+	물건 등록	POST	/v1/club/{clubID:uint}/assets
+		name string
+		description string
+		( + 이미지 파일)
+
+		success boolean
+		error string
+	물건 정보 조회	GET	/v1/club/{clubID:uint}/assets/{assetID:uint}
+
+		success boolean
+		error string
+		canReserve boolean
+		nowReserver string
+		(arr) userName string, reservationTime time.Time, returnTime time.Time, isReturned boolean
+	물건 삭제	DELETE	/v1/club/{clubID:uint}/assets/{assetID:uint}
+
+		success boolean
+		error string
+	물건 수정	PUT	/v1/club/{clubID:uint}/assets/{assetID:uint}
+		categoryID uint
+		name string
+		description string
+		( + 이미지 파일 있어도 되고 없어도 되고)
+		
+		success boolean
+		error string
+	댓글 리스트 가져오기	GET	/v1/club/{clubID:uint}/assets/{assetID:uint}/comments
+
+		success boolean
+		error string
+		(arr) commentID uint, parentCommentID uint, user_name string, userID uint, content string, writtenTime time.Time
+	댓글 작성하기	POST	/v1/club/{clubID:uint}/assets/{assetID:uint}/comments
+		content string
+
+		success boolean
+		error string
+	댓글 삭제하기	DELETE	/v1/club/{clubID:uint}/assets/{assetID:uint}/comments/{commentID:uint}
+
+		success boolean
+		error string
+	대댓글 작성하기	POST	/v1/club/{clubID:uint}/assets/{assetID:uint}/comments/{commentID:uint}
+		content string
+
+		success boolean
+		error string
