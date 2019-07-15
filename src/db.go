@@ -53,13 +53,10 @@ func (User) TableName() string {
 //ClubMember .
 type ClubMember struct {
 	gorm.Model
-	Club    Club
-	club_id uint `gorm:"foreignkey:"`
-	//User         User `gorm:"foreignkey:UserID"`
-	//UserID       uint
-	IsAccepted bool
-	//Permission   Permission `gorm:"foreignkey:PermissionID"`
-	//PermissionID uint
+	ClubID       uint
+	UserID       uint
+	IsAccepted   bool
+	PermissionID uint
 }
 
 //TableName .
@@ -70,9 +67,9 @@ func (ClubMember) TableName() string {
 //Comment .
 type Comment struct {
 	gorm.Model
-	AssetID         uint32
-	UserID          uint32
-	ParentCommentID uint32
+	AssetID         uint
+	UserID          uint
+	ParentCommentID uint
 	WrittenTime     time.Time
 	Content         string
 }
@@ -87,7 +84,7 @@ type Session struct {
 	gorm.Model
 	LoginTime time.Time
 	Mac       string
-	UserID    uint32
+	UserID    uint
 	Key       string
 }
 
@@ -99,8 +96,8 @@ func (Session) TableName() string {
 //Reservation .
 type Reservation struct {
 	gorm.Model
-	AssetID         uint32
-	UserID          uint32
+	AssetID         uint
+	UserID          uint
 	ReservationTime time.Time
 	ReturnTime      time.Time
 	IsReturned      bool
@@ -114,8 +111,8 @@ func (Reservation) TableName() string {
 //Asset .
 type Asset struct {
 	gorm.Model
-	ClubID        uint32
-	CategoryID    uint32
+	ClubID        uint
+	CategoryID    uint
 	Name          string
 	Description   string
 	ImageFileName string
@@ -129,8 +126,8 @@ func (Asset) TableName() string {
 //Category .
 type Category struct {
 	gorm.Model
-	ClubID           uint32
-	ParentCategoryID uint32
+	ClubID           uint
+	ParentCategoryID uint
 	Name             string
 }
 
