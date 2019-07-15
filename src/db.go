@@ -27,7 +27,6 @@ func (Permission) TableName() string {
 //Club .
 type Club struct {
 	gorm.Model
-	ClubID      uint32
 	Name        string
 	Description string
 }
@@ -40,7 +39,6 @@ func (Club) TableName() string {
 //User .
 type User struct {
 	gorm.Model
-	UserID uint32
 	Name   string
 	Email  string
 	Passwd string
@@ -55,10 +53,13 @@ func (User) TableName() string {
 //ClubMember .
 type ClubMember struct {
 	gorm.Model
-	ClubID     uint32
-	UserID     uint32
+	Club    Club
+	club_id uint `gorm:"foreignkey:"`
+	//User         User `gorm:"foreignkey:UserID"`
+	//UserID       uint
 	IsAccepted bool
-	Permission Permission `gorm:"fo"`
+	//Permission   Permission `gorm:"foreignkey:PermissionID"`
+	//PermissionID uint
 }
 
 //TableName .
@@ -69,7 +70,6 @@ func (ClubMember) TableName() string {
 //Comment .
 type Comment struct {
 	gorm.Model
-	CommentID       uint32
 	AssetID         uint32
 	UserID          uint32
 	ParentCommentID uint32
@@ -114,7 +114,6 @@ func (Reservation) TableName() string {
 //Asset .
 type Asset struct {
 	gorm.Model
-	AssetID       uint32
 	ClubID        uint32
 	CategoryID    uint32
 	Name          string
@@ -130,7 +129,6 @@ func (Asset) TableName() string {
 //Category .
 type Category struct {
 	gorm.Model
-	CategoryID       uint32
 	ClubID           uint32
 	ParentCategoryID uint32
 	Name             string
