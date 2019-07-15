@@ -24,7 +24,7 @@
 카테고리 생성,POST,/v1/club/<club-pk>/categories,,
 카테고리 정보 조회,GET,/v1/club/<club-pk>/categories/<category-pk>,,
 카테고리 수정,PUT,/v1/club/<club-pk>/categories/<category-pk>,,
-카테고리 삭제(recursive),PUT,/v1/club/<club-pk>/categories/<category-pk>,,
+카테고리 삭제(recursive),DELETE,/v1/club/<club-pk>/categories/<category-pk>,,
 물건 리스트 조회,GET,/v1/club/<club-pk>/assets,,
 물건 등록,POST,/v1/club/<club-pk>/assets,,
 물건 삭제,DELETE,/v1/club/<club-pk>/assets/<asset-pk>,,
