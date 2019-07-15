@@ -40,6 +40,6 @@ func initDB() {
 
 func initIris() {
 	app = iris.Default()
-	app.Delete("/v1/account", memberUnregister)
+	app.Delete("/v1/account", memberDelete)
 	app.Run(iris.Addr(irisAddr))
 }
