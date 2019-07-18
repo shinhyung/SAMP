@@ -1,10 +1,61 @@
 package main
 
 import (
-	"time"
-
+	"bufio"
+	"fmt"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"os"
+	"time"
 )
+
+var id string
+var host string
+var pw string
+
+func check(e error) {
+    if e != nil {
+        panic(e)
+    }
+}
+
+func initDB(){
+	f, err := os.Open("src/account.txt")
+	check(err)
+	defer f.Close()
+	scanner:= bufio.NewScanner(f)
+	scanner.Scan()
+	host=scanner.Text()
+	scanner.Scan()
+	id=scanner.Text()
+	scanner.Scan()
+	pw=scanner.Text()
+}
+
+func openDB() *gorm.DB{
+	r, err:=gorm.Open("mysql",fmt.Sprintf("%s:%s@tcp(%s)/SAMP",id,pw,host))
+	check(err)
+	return r
+}
+
+func resetDB() {
+	db := openDB()
+	defer db.Close()
+	db.DropTableIfExists(&Permission{}, &ClubMember{}, &Comment{}, &Session{}, &Reservation{}, &Asset{}, &User{}, &Category{}, &Club{})
+	db.AutoMigrate(&Permission{}, &ClubMember{}, &Comment{}, &Session{}, &Reservation{}, &Asset{}, &User{}, &Category{}, &Club{})
+	db.Model(&ClubMember{}).AddForeignKey("club_id", "clubs(id)", "CASCADE", "CASCADE")
+	db.Model(&ClubMember{}).AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
+	db.Model(&ClubMember{}).AddForeignKey("permission_id", "permissions(id)", "CASCADE", "CASCADE")
+	db.Model(&Comment{}).AddForeignKey("asset_id", "assets(id)", "CASCADE", "CASCADE")
+	db.Model(&Comment{}).AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
+	db.Model(&Comment{}).AddForeignKey("parent_comment_id", "comments(id)", "CASCADE", "CASCADE")
+	db.Model(&Session{}).AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
+	db.Model(&Reservation{}).AddForeignKey("user_id", "users(id)", "CASCADE", "CASCADE")
+	db.Model(&Reservation{}).AddForeignKey("asset_id", "assets(id)", "CASCADE", "CASCADE")
+	db.Model(&Asset{}).AddForeignKey("club_id", "clubs(id)", "CASCADE", "CASCADE")
+	db.Model(&Asset{}).AddForeignKey("category_id", "categories(id)", "CASCADE", "CASCADE")
+	db.Model(&Category{}).AddForeignKey("club_id", "clubs(id)", "CASCADE", "CASCADE")
+}
 
 //Permission .
 type Permission struct {
