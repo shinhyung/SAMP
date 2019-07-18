@@ -1,4 +1,6 @@
 	회원가입	POST	/v1/account
+		name string
+		phone string
 		email string
 		passwd string
 		

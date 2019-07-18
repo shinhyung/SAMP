@@ -3,7 +3,9 @@ package main
 import "github.com/kataras/iris"
 
 func userPost(ctx iris.Context) {
-
+	db :=openDB()
+	ctx.para
+	ctx.JSON(iris.Map({"success":true}))
 }
 
 func userDelete(ctx iris.Context) {

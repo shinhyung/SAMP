@@ -14,7 +14,6 @@ const irisAddr string = ":8080"
 func main() {
 	initDB()
 	initIris()
-
 	fmt.Println("ok")
 }
 

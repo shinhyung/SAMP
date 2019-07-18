@@ -1,4 +1,4 @@
-﻿기능,method,URL,parameters,return
+기능,method,URL,parameters,return
 회원가입,POST,/v1/account,,
 회원탈퇴,DELETE,/v1/account,,
 로그인,POST,/v1/login,,
