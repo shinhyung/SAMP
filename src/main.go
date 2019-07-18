@@ -47,6 +47,7 @@ func initIris() {
 	app.Post("/v1/club/{clubID:uint}/categories", categoryPost)
 	app.Get("/v1/club/{clubID:uint}/categories/{categoryID:uint}", categoryGet)
 	app.Put("/v1/club/{clubID:uint}/categories/{categoryID:uint}", categoryPut)
+	app.Delete("/v1/club/{clubID:uint}/categories/{categoryID:uint}", categoryDelete)
 	app.Get("/v1/club/{clubID:uint}/assets", assetGetList)
 	app.Post("/v1/club/{clubID:uint}/assets", assetPost)
 	app.Get("/v1/club/{clubID:uint}/assets/{assetID:uint}", assetGet)

@@ -40,7 +40,6 @@ func openDB() *gorm.DB{
 
 func resetDB() {
 	db := openDB()
-	defer db.Close()
 	db.DropTableIfExists(&Permission{}, &ClubMember{}, &Comment{}, &Session{}, &Reservation{}, &Asset{}, &User{}, &Category{}, &Club{})
 	db.AutoMigrate(&Permission{}, &ClubMember{}, &Comment{}, &Session{}, &Reservation{}, &Asset{}, &User{}, &Category{}, &Club{})
 	db.Model(&ClubMember{}).AddForeignKey("club_id", "clubs(id)", "CASCADE", "CASCADE")
